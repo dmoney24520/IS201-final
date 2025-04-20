@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Football Quiz App</title>
+  <style>
+    body {
+      background-color: #f7f7f7;
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    h1 {
+      text-align: center;
+      color: #b30000;
+    }
+    .question {
+      font-weight: bold;
+    }
+    .answers {
+      margin-top: 10px;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 2px solid #004080;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .answers button:hover {
+      background-color: #004080;
+      color: white;
+    }
+    .score {
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: #004080;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏈 Football Quiz</h1>
+  <div id="quiz">
+    <p class="question" id="question"></p>
+    <div class="answers" id="answers"></div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <a href="scratch.html">← Back to Football Fan Page</a>
+
+  <script>
+    const questions = [
+      {
+        question: "Which team has won the most Super Bowls?",
+        answers: ["Patriots", "Steelers", "Cowboys", "Packers"],
+        correct: "Steelers"
+      },
+      {
+        question: "Who is the quarterback for the Kansas City Chiefs?",
+        answers: ["Aaron Rodgers", "Tom Brady", "Patrick Mahomes", "Joe Burrow"],
+        correct: "Patrick Mahomes"
+      },
+      {
+        question: "How many points is a touchdown worth?",
+        answers: ["3", "6", "7", "1"],
+        correct: "6"
+      },
+      {
+        question: "What does NFL stand for?",
+        answers: ["National Football League", "National Fun League", "New Football League", "National Federation League"],
+        correct: "National Football League"
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById("question").innerText = q.question;
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
+      q.answers.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.onclick = () => {
+          if (answer === q.correct) {
+            score++;
+            alert("Correct!");
+          } else {
+            alert("Nope!");
+          }
+          current++;
+          if (current < questions.length) {
+            showQuestion();
+          } else {
+            document.getElementById("quiz").innerHTML = `<h2>Quiz Complete!</h2><p class="score">You scored ${score} out of ${questions.length}</p>`;
+          }
+        };
+        answersDiv.appendChild(btn);
+      });
+    }
+
+    showQuestion();
+  </script>
+
+</body>
+</html>
